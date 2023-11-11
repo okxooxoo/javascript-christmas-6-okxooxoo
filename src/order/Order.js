@@ -7,6 +7,10 @@ class Order {
     constructor(date) {
         this.#date = date;
     }
+
+    calculateTotalOrderAmount() {
+        // 총 주문 금액 계산
+    }
 }
 
 export default Order;
