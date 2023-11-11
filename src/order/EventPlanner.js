@@ -2,15 +2,17 @@ import OrderedDate from './OrderedDate.js';
 import OrderedMenu from './OrderedMenu.js';
 
 /**
- * 혜택 내역을 관리하는 클래스
+ * 혜택 내역을 관리하는 클래스(이것도 분리해야 하나..?)
  */
 class EventPlanner {
   #date;
   #menu;
+  #benefit;
 
   constructor(orderedDate, orderedMenu) {
     this.#date = orderedDate;
     this.#menu = orderedMenu;
+    this.#benefit = new Map();
   }
 
   /**
@@ -28,25 +30,41 @@ class EventPlanner {
   }
 
   setBenefit() {
-    const benefit = new Map();
+    this.setDdayBenefit();
+    this.setWeekendBenefit();
+    this.setWeekdayBenefit();
+    this.setSpecialBenefit();
+    this.setPresentBenefit();
+  }
 
+  setDdayBenefit() {
     if (this.#date.isDday()) {
-      benefit.set('Dday', this.#date.calculateDdayDiscountAmount());
+      this.#benefit.set('Dday', this.#date.calculateDdayDiscountAmount());
     }
-    if (this.#date.isWeekend() && this.#menu.getMainQuantity() > 0) {
-      benefit.set('weekend', this.calculateWeekendDiscountAmount());
-    }
-    if (this.#date.isWeekday() && this.#menu.getDessertQuantity() > 0) {
-      benefit.set('weekday', this.calculateWeekdayDiscountAmount());
-    }
-    if (this.#date.isSpecial()) {
-      benefit.set('special', 1000);
-    }
-    if (this.#menu.isPresentEvent()) {
-      benefit.set('present', 25000);
-    }
+  }
 
-    return benefit;
+  setWeekendBenefit() {
+    if (this.#date.isWeekend() && this.#menu.getMainQuantity() > 0) {
+      this.#benefit.set('weekend', this.calculateWeekendDiscountAmount());
+    }
+  }
+
+  setWeekdayBenefit() {
+    if (this.#date.isWeekday() && this.#menu.getDessertQuantity() > 0) {
+      this.#benefit.set('weekday', this.calculateWeekdayDiscountAmount());
+    }
+  }
+
+  setSpecialBenefit() {
+    if (this.#date.isSpecial()) {
+      this.#benefit.set('special', 1000);
+    }
+  }
+
+  setPresentBenefit() {
+    if (this.#menu.isPresentEvent()) {
+      this.#benefit.set('present', 25000);
+    }
   }
 }
 
