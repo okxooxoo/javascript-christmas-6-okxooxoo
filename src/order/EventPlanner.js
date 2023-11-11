@@ -31,22 +31,19 @@ class EventPlanner {
     const benefit = new Map();
 
     if (this.#date.isDday()) {
-      benefit.set(
-        '크리스마스 디데이 할인',
-        this.#date.calculateDdayDiscountAmount(),
-      );
+      benefit.set('Dday', this.#date.calculateDdayDiscountAmount());
     }
     if (this.#date.isWeekend() && this.#menu.getMainQuantity() > 0) {
-      benefit.set('주말 할인', this.calculateWeekendDiscountAmount());
+      benefit.set('weekend', this.calculateWeekendDiscountAmount());
     }
     if (this.#date.isWeekday() && this.#menu.getDessertQuantity() > 0) {
-      benefit.set('평일 할인', this.calculateWeekdayDiscountAmount());
+      benefit.set('weekday', this.calculateWeekdayDiscountAmount());
     }
     if (this.#date.isSpecial()) {
-      benefit.set('특별 할인', 1000);
+      benefit.set('special', 1000);
     }
     if (this.#menu.isPresentEvent()) {
-      benefit.set('증정 이벤트', 25000);
+      benefit.set('present', 25000);
     }
 
     return benefit;
