@@ -1,6 +1,6 @@
 import { APPETIZER, DESSERT, DRINK, MAIN } from '../constants/menu.js';
 
-class OrderedMenu {
+class Order {
   #appetizer;
   #dessert;
   #drink;
@@ -11,16 +11,6 @@ class OrderedMenu {
     this.#dessert = dessert;
     this.#drink = drink;
     this.#main = main;
-  }
-
-  /**
-   * 증정 이벤트 적용되는지
-   */
-  isPresentEvent() {
-    if (this.calculateTotalOrderAmount() >= 120000) {
-      return true;
-    }
-    return false;
   }
 
   /**
@@ -69,4 +59,4 @@ class OrderedMenu {
   }
 }
 
-export default OrderedMenu;
+export default Order;

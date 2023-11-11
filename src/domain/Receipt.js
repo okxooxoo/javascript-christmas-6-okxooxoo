@@ -1,6 +1,6 @@
-import { EVENT_BADGE } from "./constants/message.js";
+import { EVENT_BADGE } from '../constants/message.js';
 
-class Benefit {
+class Receipt {
   #benefit;
 
   constructor(benefit) {
@@ -38,4 +38,4 @@ class Benefit {
   }
 }
 
-export default Benefit;
+export default Receipt;
