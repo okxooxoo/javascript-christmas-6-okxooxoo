@@ -1,10 +1,4 @@
-import OrderedDate from './OrderedDate.js';
-import OrderedMenu from './OrderedMenu.js';
-
-/**
- * 혜택 내역을 관리하는 클래스(이것도 분리해야 하나..?)
- */
-class EventPlanner {
+class Order {
   #date;
   #menu;
   #benefit;
@@ -29,6 +23,9 @@ class EventPlanner {
     return this.#menu.getDessertQuantity() * 2023;
   }
 
+  /**
+   * 혜택 내역을 기록
+   */
   setBenefit() {
     this.setDdayBenefit();
     this.setWeekendBenefit();
@@ -68,4 +65,4 @@ class EventPlanner {
   }
 }
 
-export default EventPlanner;
+export default Order;
