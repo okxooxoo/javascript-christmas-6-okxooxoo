@@ -5,3 +5,10 @@ export const BENEFIT = Object.freeze({
   special: '특별 할인: ',
   present: '증정 이벤트: ',
 });
+
+export const EVENT_BADGE = Object.freeze({
+  star: '별',
+  tree: '트리',
+  santa: '산타',
+  none: '없음',
+});

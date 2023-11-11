@@ -1,3 +1,5 @@
+import { EVENT_BADGE } from "./constants/message.js";
+
 class Benefit {
   #benefit;
 
@@ -29,10 +31,10 @@ class Benefit {
    */
   getEventBadge() {
     const benefitAmount = this.calculateTotalBenefitAmount();
-    if (benefitAmount >= 20000) return '산타';
-    if (benefitAmount >= 10000) return '트리';
-    if (benefitAmount >= 5000) return '별';
-    return '없음';
+    if (benefitAmount >= 20000) return EVENT_BADGE.santa;
+    if (benefitAmount >= 10000) return EVENT_BADGE.tree;
+    if (benefitAmount >= 5000) return EVENT_BADGE.star;
+    return EVENT_BADGE.none;
   }
 }
 
