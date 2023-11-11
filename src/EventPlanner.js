@@ -8,13 +8,12 @@ class EventPlanner {
         this.#benefitDetails = new Map();
     }
 
-    isPresentEvent(totalOrderAmount) {
-        if (totalOrderAmount >= 120000) return true;
-        return false;
+    getBenefitDetails() {
+        return this.#benefitDetails;
     }
 
-    setPresentEvent() {
-        if (this.isPresentEvent()) {
+    setPresentEvent(totalOrderAmount) {
+        if (totalOrderAmount >= 120000) {
             this.#benefitDetails.set('present', true);
         }
     }
