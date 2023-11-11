@@ -22,6 +22,11 @@ class OrderedDate {
     if (this.#date % 7 === 3 || this.#date === 25) return true;
     return false;
   }
+
+  // D-Day 할인 금액 계산
+  calculateDdayDiscountAmount() {
+    return this.#date * 100 + 900;
+  }
 }
 
 export default OrderedDate;

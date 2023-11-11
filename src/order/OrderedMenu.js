@@ -14,6 +14,16 @@ class OrderedMenu {
   }
 
   /**
+   * 증정 이벤트 적용되는지
+   */
+  isPresentEvent() {
+    if (this.calculateTotalOrderAmount() >= 120000) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * 주문한 디저트의 수량를 반환
    */
   getDessertQuantity() {
