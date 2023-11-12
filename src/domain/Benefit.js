@@ -9,54 +9,48 @@ class Benefit {
     this.#order = order;
   }
 
-  getBenefitDetails() {
-    const benefitDetails = new Map();
+  getBenefit() {
+    const benefit = new Map();
 
-    this.setDdayBenefit(benefitDetails);
-    this.setWeekendBenefit(benefitDetails);
-    this.setWeekdayBenefit(benefitDetails);
-    this.setSpecialBenefit(benefitDetails);
-    this.setPresentBenefit(benefitDetails);
+    this.setDdayBenefit(benefit);
+    this.setWeekendBenefit(benefit);
+    this.setWeekdayBenefit(benefit);
+    this.setSpecialBenefit(benefit);
+    this.setPresentBenefit(benefit);
 
-    return benefitDetails;
+    return benefit;
   }
 
-  setDdayBenefit(benefitDetails) {
+  setDdayBenefit(benefit) {
     if (Discount.isDday(this.#date)) {
-      benefitDetails.set('Dday', Discount.calculateDdayAmount(this.#date));
+      benefit.set('Dday', Discount.calculateDdayAmount(this.#date));
     }
   }
 
-  setWeekendBenefit(benefitDetails) {
+  setWeekendBenefit(benefit) {
     const mainQuantity = this.#order.getMainQuantity();
     if (Discount.isWeekend(this.#date) && mainQuantity > 0) {
-      benefitDetails.set(
-        'weekend',
-        Discount.calculateWeekendAmount(mainQuantity),
-      );
+      benefit.set('weekend', Discount.calculateWeekendAmount(mainQuantity));
     }
   }
 
-  setWeekdayBenefit(benefitDetails) {
+  setWeekdayBenefit(benefit) {
     const dessertQuantity = this.#order.getDessertQuantity();
     if (Discount.isWeekday(this.#date) && dessertQuantity > 0) {
-      benefitDetails.set(
-        'weekday',
-        Discount.calculateWeekdayAmount(dessertQuantity),
-      );
+      benefit.set('weekday', Discount.calculateWeekdayAmount(dessertQuantity));
     }
   }
 
-  setSpecialBenefit(benefitDetails) {
+  setSpecialBenefit(benefit) {
     if (Discount.isSpecial(this.#date)) {
-      benefitDetails.set('special', Discount.getSpecialAmount());
+      benefit.set('special', Discount.getSpecialAmount());
     }
   }
 
-  setPresentBenefit(benefitDetails) {
+  setPresentBenefit(benefit) {
     const totalOrderAmount = this.#order.calculateTotalOrderAmount();
     if (Discount.isPresent(totalOrderAmount)) {
-      benefitDetails.set('present', Discount.getPresentAmount());
+      benefit.set('present', Discount.getPresentAmount());
     }
   }
 }
