@@ -1,10 +1,12 @@
 import { Discount } from './Discount.js';
+import DateValidator from '../validator/DateValidator.js';
 
 class Benefit {
   #date;
   #order;
 
   constructor(date, order) {
+    DateValidator.validate(date);
     this.#date = date;
     this.#order = order;
   }

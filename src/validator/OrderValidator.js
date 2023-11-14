@@ -1,3 +1,5 @@
+import Validation from './Validation.js';
+
 const OrderValidator = {
   validate(input) {
     const orderArray = this.toOrderArray(input);
@@ -8,14 +10,14 @@ const OrderValidator = {
   },
 
   toOrderArray(input) {
-    const orderArray = input.split(',').map(order => order.trim());
-    orderArray.forEach(order => OrderValidator.isValidOrder(order));
+    const orderArray = input.split(',').map((order) => order.trim());
+    orderArray.forEach((order) => Validation.isValidOrder(order));
     return orderArray;
   },
 
   toOrderMap(orderArray) {
     const orderMap = new Map();
-    orderArray.forEach(order => {
+    orderArray.forEach((order) => {
       const [menu, quantity] = order.split('-');
       orderMap.set(menu, parseInt(quantity));
     });
@@ -24,14 +26,14 @@ const OrderValidator = {
 
   validateMenu(orderMap) {
     const menuArray = Array.from(orderMap.keys());
-    OrderValidator.isExistMenu(menuArray);
-    OrderValidator.isDuplicatedMenu(menuArray);
-    OrderValidator.isOnlyDrinkMenu(menuArray);
+    Validation.isExistMenu(menuArray);
+    Validation.isDuplicatedMenu(menuArray);
+    Validation.isOnlyDrinkMenu(menuArray);
   },
 
   validateQuantity(orderMap) {
     const quantityArray = Array.from(orderMap.values());
-    OrderValidator.isLessThan20(quantityArray);
+    Validation.isLessThan20(quantityArray);
   },
 };
 

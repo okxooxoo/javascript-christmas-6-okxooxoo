@@ -1,7 +1,7 @@
 import { ERROR } from '../constants/error.js';
 import { MENU, DRINK } from '../constants/menu.js';
 
-const Validator = {
+const Validation = {
   isInteger(date) {
     const integerRegex = new RegExp(/^\d+$/);
     if (!integerRegex.test(date)) {
@@ -23,7 +23,7 @@ const Validator = {
   },
 
   isExistMenu(menuArray) {
-    menuArray.forEach(menu => {
+    menuArray.forEach((menu) => {
       if (!MENU.hasOwnProperty(menu)) {
         throw new Error(ERROR.inValidOrder);
       }
@@ -38,7 +38,7 @@ const Validator = {
   },
 
   isOnlyDrinkMenu(menuArray) {
-    const allDrink = menuArray.every(menu => DRINK.hasOwnProperty(menu));
+    const allDrink = menuArray.every((menu) => DRINK.hasOwnProperty(menu));
 
     if (allDrink) {
       throw new Error(ERROR.inValidOrder);
@@ -55,3 +55,5 @@ const Validator = {
     }
   },
 };
+
+export default Validation;

@@ -4,13 +4,15 @@ import OrderValidator from '../validator/OrderValidator.js';
 class Order {
   #order;
 
-  constructor(input) {
-    this.#order = OrderValidator.validate(input);
+  constructor(order) {
+    OrderValidator.validateMenu(order);
+    OrderValidator.validateQuantity(order);
+    this.#order = order;
   }
 
   getDessertQuantity() {
     const menuArray = Array.from(this.#order.keys());
-    const desserts = menuArray.filter(menu => DESSERT.hasOwnProperty(menu));
+    const desserts = menuArray.filter((menu) => DESSERT.hasOwnProperty(menu));
     const dessertQuantity = desserts.reduce((sum, dessert) => {
       return sum + this.#order.get(dessert);
     }, 0);
@@ -20,7 +22,7 @@ class Order {
 
   getMainQuantity() {
     const menuArray = Array.from(this.#order.keys());
-    const mains = menuArray.filter(menu => MAIN.hasOwnProperty(menu));
+    const mains = menuArray.filter((menu) => MAIN.hasOwnProperty(menu));
     const mainQuantity = mains.reduce((sum, main) => {
       return sum + this.#order.get(main);
     }, 0);
@@ -30,10 +32,9 @@ class Order {
 
   calculateTotalOrderAmount() {
     const orderArray = Array.from(this.#order.entries());
-    const totalOrderAmount = orderArray.reduce(
-      (totalAmount, [name, quantity]) => {
-        return totalAmount + MENU[name] * quantity;
-      }, 0);
+    const totalOrderAmount = orderArray.reduce((totalAmount, [name, quantity]) => {
+      return totalAmount + MENU[name] * quantity;
+    }, 0);
 
     return totalOrderAmount;
   }

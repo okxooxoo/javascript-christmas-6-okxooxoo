@@ -1,7 +1,9 @@
+import Validation from './Validation.js';
+
 const DateValidator = {
   validate(input) {
-    this.isInteger(input);
-    this.isValidRange(input);
+    Validation.isInteger(input);
+    Validation.isValidRange(input);
     const date = parseInt(input);
     return date;
   },
