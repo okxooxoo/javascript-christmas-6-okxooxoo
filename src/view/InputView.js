@@ -6,9 +6,9 @@ import { READ } from '../constants/message.js';
 const InputView = {
   async readDate() {
     try {
-      const date = await Console.readLineAsync(READ.date);
-      DateValidator.isValidDate(date); // 검증은 도메인에서,,
-      return parseInt(date);
+      const input = await Console.readLineAsync(READ.date);
+      const date = DateValidator.validate(input);
+      return date;
     } catch (err) {
       Console.print(err.message);
       return this.readDate();
@@ -16,8 +16,14 @@ const InputView = {
   },
 
   async readOrder() {
-    const order = await Console.readLineAsync(READ.order);
-    return order;
+    try {
+      const input = await Console.readLineAsync(READ.order);
+      const order = OrderValidator.validate(input);
+      return order;
+    } catch (err) {
+      Console.print(err.message);
+      return this.readOrder();
+    }
   },
 };
 

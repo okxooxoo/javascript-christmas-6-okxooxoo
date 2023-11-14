@@ -1,45 +1,37 @@
-import { ERROR } from '../constants/error.js';
-import { MENU, DRINK } from '../constants/menu.js';
-
 const OrderValidator = {
-  isValidOrder(order) {
-    const orderRegex = new RegExp(/^[가-힣]+-[1-9]\d*$/);
-    if (!orderRegex.test(order)) {
-      throw new Error(ERROR.inValidOrder);
-    }
+  validate(input) {
+    const orderArray = this.toOrderArray(input);
+    const orderMap = this.toOrderMap(orderArray);
+    this.validateMenu(orderMap);
+    this.validateQuantity(orderMap);
+    return orderMap;
   },
 
-  isExistMenu(menuArray) {
-    menuArray.forEach(menu => {
-      if (!MENU.hasOwnProperty(menu)) {
-        throw new Error(ERROR.inValidOrder);
-      }
+  toOrderArray(input) {
+    const orderArray = input.split(',').map(order => order.trim());
+    orderArray.forEach(order => OrderValidator.isValidOrder(order));
+    return orderArray;
+  },
+
+  toOrderMap(orderArray) {
+    const orderMap = new Map();
+    orderArray.forEach(order => {
+      const [menu, quantity] = order.split('-');
+      orderMap.set(menu, parseInt(quantity));
     });
+    return orderMap;
   },
 
-  isDuplicatedMenu(menuArray) {
-    const menuSet = new Set(menuArray);
-    if (menuArray.length != menuSet.size) {
-      throw new Error(ERROR.inValidOrder);
-    }
+  validateMenu(orderMap) {
+    const menuArray = Array.from(orderMap.keys());
+    OrderValidator.isExistMenu(menuArray);
+    OrderValidator.isDuplicatedMenu(menuArray);
+    OrderValidator.isOnlyDrinkMenu(menuArray);
   },
 
-  isOnlyDrinkMenu(menuArray) {
-    const allDrink = menuArray.every(menu => DRINK.hasOwnProperty(menu));
-
-    if (allDrink) {
-      throw new Error(ERROR.inValidOrder);
-    }
-  },
-
-  isLessThan20(quantityArray) {
-    const sum = quantityArray.reduce((sum, quantity) => {
-      return sum + quantity;
-    }, 0);
-
-    if (sum > 20) {
-      throw new Error(ERROR.inValidOrder);
-    }
+  validateQuantity(orderMap) {
+    const quantityArray = Array.from(orderMap.values());
+    OrderValidator.isLessThan20(quantityArray);
   },
 };
 
