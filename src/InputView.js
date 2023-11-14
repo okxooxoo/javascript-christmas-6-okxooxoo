@@ -7,7 +7,7 @@ const InputView = {
   async readDate() {
     try {
       const date = await Console.readLineAsync(READ.date);
-      DateValidator.isValidDate(date);
+      DateValidator.isValidDate(date); // 검증은 도메인에서,,
       return parseInt(date);
     } catch (err) {
       Console.print(err.message);
@@ -16,14 +16,8 @@ const InputView = {
   },
 
   async readOrder() {
-    try {
-      const order = await Console.readLineAsync(READ.order);
-      OrderValidator.isValidOrder(order);
-      return order;
-    } catch (err) {
-      console.print(err.message);
-      return this.readOrder();
-    }
+    const order = await Console.readLineAsync(READ.order);
+    return order;
   },
 };
 

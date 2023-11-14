@@ -9,32 +9,31 @@ const OrderValidator = {
     }
   },
 
-  isExistMenu(menus) {
-    const existMenu = MENU.keys();
-    menus.forEach(menu => {
-      if (!existMenu.includes(menu)) {
+  isExistMenu(menuArray) {
+    menuArray.forEach(menu => {
+      if (!MENU.hasOwnProperty(menu)) {
         throw new Error(ERROR.inValidOrder);
       }
     });
   },
 
-  isDuplicatedMenu(menus) {
-    const menuSet = new Set(menus);
-    if (menus.length != menuSet.size) {
+  isDuplicatedMenu(menuArray) {
+    const menuSet = new Set(menuArray);
+    if (menuArray.length != menuSet.size) {
       throw new Error(ERROR.inValidOrder);
     }
   },
 
-  isOnlyDrinkMenu(menus) {
-    const allDrink = menus.every(menu => DRINK.includes(menu));
+  isOnlyDrinkMenu(menuArray) {
+    const allDrink = menuArray.every(menu => DRINK.hasOwnProperty(menu));
 
     if (allDrink) {
       throw new Error(ERROR.inValidOrder);
     }
   },
 
-  isLessThan20(quantitys) {
-    const sum = quantitys.reduce((sum, quantity) => {
+  isLessThan20(quantityArray) {
+    const sum = quantityArray.reduce((sum, quantity) => {
       return sum + quantity;
     }, 0);
 
