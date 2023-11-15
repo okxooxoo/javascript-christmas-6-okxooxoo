@@ -12,7 +12,8 @@ class Receipt {
    * 총 혜택 금액 계산
    */
   calculateTotalBenefitAmount() {
-    const benefitAmount = Array.from(this.#benefit.values());
+    const benefitDetails = this.#benefit.getBenefitDetails();
+    const benefitAmount = Array.from(benefitDetails.values());
     const totalBenefitAmount = benefitAmount.reduce((total, amount) => {
       return total + amount;
     }, 0);

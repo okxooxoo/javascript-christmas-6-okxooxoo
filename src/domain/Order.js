@@ -10,26 +10,9 @@ class Order {
     this.#order = order;
   }
 
-  getDessertQuantity() {
-    const menuArray = Array.from(this.#order.keys());
-    const desserts = menuArray.filter((menu) => DESSERT.hasOwnProperty(menu));
-    const dessertQuantity = desserts.reduce((sum, dessert) => {
-      return sum + this.#order.get(dessert);
-    }, 0);
-
-    return dessertQuantity;
-  }
-
-  getMainQuantity() {
-    const menuArray = Array.from(this.#order.keys());
-    const mains = menuArray.filter((menu) => MAIN.hasOwnProperty(menu));
-    const mainQuantity = mains.reduce((sum, main) => {
-      return sum + this.#order.get(main);
-    }, 0);
-
-    return mainQuantity;
-  }
-
+  /**
+   * 총 주문 금액을 계산
+   */
   calculateTotalOrderAmount() {
     const orderArray = Array.from(this.#order.entries());
     const totalOrderAmount = orderArray.reduce((totalAmount, [name, quantity]) => {
@@ -37,6 +20,32 @@ class Order {
     }, 0);
 
     return totalOrderAmount;
+  }
+
+  /**
+   * 주문한 디저트 메뉴의 수량을 반환
+   */
+  getDessertQuantity() {
+    const menuArray = Array.from(this.#order.keys());
+    const desserts = menuArray.filter((menu) => DESSERT.hasOwnProperty(menu));
+    const dessertQuantity = desserts.reduce((totalQuantity, dessert) => {
+      return totalQuantity + this.#order.get(dessert);
+    }, 0);
+
+    return dessertQuantity;
+  }
+
+  /**
+   * 주문한 메인 메뉴의 수량을 반환
+   */
+  getMainQuantity() {
+    const menuArray = Array.from(this.#order.keys());
+    const mains = menuArray.filter((menu) => MAIN.hasOwnProperty(menu));
+    const mainQuantity = mains.reduce((totalQuantity, main) => {
+      return totalQuantity + this.#order.get(main);
+    }, 0);
+
+    return mainQuantity;
   }
 }
 

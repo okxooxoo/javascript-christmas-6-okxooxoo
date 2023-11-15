@@ -2,15 +2,15 @@ import { ERROR } from '../constants/error.js';
 import { MENU, DRINK } from '../constants/menu.js';
 
 const Validation = {
-  isInteger(date) {
+  isInteger(input) {
     const integerRegex = new RegExp(/^\d+$/);
-    if (!integerRegex.test(date)) {
+    if (!integerRegex.test(input)) {
       throw new Error(ERROR.invalidDate);
     }
   },
 
-  isValidRange(date) {
-    if (date < 1 || date > 31) {
+  isValidDayOfMonth(input) {
+    if (input < 1 || input > 31) {
       throw new Error(ERROR.invalidDate);
     }
   },
@@ -23,11 +23,9 @@ const Validation = {
   },
 
   isExistMenu(menuArray) {
-    menuArray.forEach((menu) => {
-      if (!MENU.hasOwnProperty(menu)) {
-        throw new Error(ERROR.invalidOrder);
-      }
-    });
+    if (!menuArray.every((menu) => MENU.hasOwnProperty(menu))) {
+      throw new Error(ERROR.invalidOrder);
+    }
   },
 
   isDuplicatedMenu(menuArray) {
@@ -38,9 +36,7 @@ const Validation = {
   },
 
   isOnlyDrinkMenu(menuArray) {
-    const allDrink = menuArray.every((menu) => DRINK.hasOwnProperty(menu));
-
-    if (allDrink) {
+    if (menuArray.every((menu) => DRINK.hasOwnProperty(menu))) {
       throw new Error(ERROR.invalidOrder);
     }
   },

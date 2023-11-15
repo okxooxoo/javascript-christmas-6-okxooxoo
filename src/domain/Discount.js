@@ -16,30 +16,22 @@ const Discount = {
   },
 
   isDday(date) {
-    if (date <= 25) {
-      return true;
-    }
+    if (date <= 25) return true;
     return false;
   },
 
   isWeekend(date) {
-    if ((date - 1) % 7 < 2) {
-      return true;
-    }
+    if ((date - 1) % 7 < 2) return true;
     return false;
   },
 
   isSpecial(date) {
-    if (date % 7 === 3 || date === 25) {
-      return true;
-    }
+    if (date % 7 === 3 || date === 25) return true;
     return false;
   },
 
   isPresent(totalOrderAmount) {
-    if (totalOrderAmount >= 120000) {
-      return true;
-    }
+    if (totalOrderAmount >= 120000) return true;
     return false;
   },
 };

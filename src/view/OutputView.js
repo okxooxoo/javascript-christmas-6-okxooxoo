@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { GUIDE, TITLE, CONTENT } from '../constants/message.js';
+import { SIGN } from '../constants/sign.js';
 
 const OutputView = {
   printGreet() {
@@ -19,30 +20,35 @@ const OutputView = {
     Console.print('');
   },
 
+  printPresentMenu(isPresent) {
+    Console.print(TITLE.presentMenu);
+    if (isPresent) Console.print('샴페인 1개'); // 상수화 필요
+    else Console.print(SIGN.none);
+    Console.print('');
+  },
+
   printTotalOrderAmount(amount) {
     Console.print(TITLE.totalOrderAmount);
     Console.print(CONTENT.price(amount));
     Console.print('');
   },
 
-  printPresentMenu() {
-    Console.print(TITLE.presentMenu);
-    Console.print('샴페인 1개'); // 상수화 필요
-    Console.print('');
-  },
-
-  printBenefit(benefit) {
+  printBenefit(benefitDetails) {
     Console.print(TITLE.benefit);
-    const benefitArray = Array.from(benefit.entries());
-    benefitArray.forEach(([benefit, amount]) => {
-      Console.print(benefit + CONTENT.price(amount));
-    });
+    if (benefitDetails.size === 0) Console.print(SIGN.none);
+    else {
+      const benefitArray = Array.from(benefitDetails.entries());
+      benefitArray.forEach(([benefit, amount]) => {
+        Console.print(benefit + SIGN.minus + CONTENT.price(amount));
+      });
+    }
     Console.print('');
   },
 
   printTotalBenefitAmount(amount) {
     Console.print(TITLE.totalBenefitAmount);
-    Console.print('-' + CONTENT.price(amount));
+    if (amount === 0) Console.print(CONTENT.price(amount));
+    else Console.print(SIGN.minus + CONTENT.price(amount));
     Console.print('');
   },
 

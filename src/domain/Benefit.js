@@ -12,16 +12,21 @@ class Benefit {
     this.#order = order;
   }
 
-  getBenefit() {
-    const benefit = new Map();
+  getBenefitDetails() {
+    const benefitDetails = new Map();
+    if (this.#order.calculateTotalOrderAmount() >= 10000) {
+      this.#setBenefitDetails(benefitDetails);
+    }
 
+    return benefitDetails;
+  }
+
+  #setBenefitDetails(benefit) {
     this.#setDdayBenefit(benefit);
     this.#setWeekendBenefit(benefit);
     this.#setWeekdayBenefit(benefit);
     this.#setSpecialBenefit(benefit);
     this.#setPresentBenefit(benefit);
-
-    return benefit;
   }
 
   #setDdayBenefit(benefit) {
