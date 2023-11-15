@@ -1,5 +1,6 @@
-import { Discount } from './Discount.js';
+import Discount from './Discount.js';
 import DateValidator from '../validator/DateValidator.js';
+import { BENEFIT } from '../constants/message.js';
 
 class Benefit {
   #date;
@@ -25,34 +26,34 @@ class Benefit {
 
   #setDdayBenefit(benefit) {
     if (Discount.isDday(this.#date)) {
-      benefit.set('Dday', Discount.calculateDdayAmount(this.#date));
+      benefit.set(BENEFIT.Dday, Discount.calculateDdayAmount(this.#date));
     }
   }
 
   #setWeekendBenefit(benefit) {
     const mainQuantity = this.#order.getMainQuantity();
     if (Discount.isWeekend(this.#date) && mainQuantity > 0) {
-      benefit.set('weekend', Discount.calculateWeekAmount(mainQuantity));
+      benefit.set(BENEFIT.weekend, Discount.calculateWeekAmount(mainQuantity));
     }
   }
 
   #setWeekdayBenefit(benefit) {
     const dessertQuantity = this.#order.getDessertQuantity();
-    if (Discount.isWeekday(this.#date) && dessertQuantity > 0) {
-      benefit.set('weekday', Discount.calculateWeekAmount(dessertQuantity));
+    if (!Discount.isWeekend(this.#date) && dessertQuantity > 0) {
+      benefit.set(BENEFIT.weekday, Discount.calculateWeekAmount(dessertQuantity));
     }
   }
 
   #setSpecialBenefit(benefit) {
     if (Discount.isSpecial(this.#date)) {
-      benefit.set('special', Discount.getSpecialAmount());
+      benefit.set(BENEFIT.special, Discount.getSpecialAmount());
     }
   }
 
   #setPresentBenefit(benefit) {
     const totalOrderAmount = this.#order.calculateTotalOrderAmount();
     if (Discount.isPresent(totalOrderAmount)) {
-      benefit.set('present', Discount.getPresentAmount());
+      benefit.set(BENEFIT.present, Discount.getPresentAmount());
     }
   }
 }

@@ -1,4 +1,5 @@
 import { EVENT_BADGE } from '../constants/message.js';
+import Discount from './Discount.js';
 
 class Receipt {
   #benefit;
@@ -23,8 +24,8 @@ class Receipt {
    */
   calculatePaymentAmount(totalOrderAmount) {
     const totalBenefitAmount = this.calculateTotalBenefitAmount();
-    const paymentAmount = totalOrderAmount - totalBenefitAmount;
-    if (totalOrderAmount >= 120000) paymentAmount -= 25000;
+    let paymentAmount = totalOrderAmount - totalBenefitAmount;
+    if (Discount.isPresent(totalOrderAmount)) paymentAmount += 25000;
     return paymentAmount;
   }
 
