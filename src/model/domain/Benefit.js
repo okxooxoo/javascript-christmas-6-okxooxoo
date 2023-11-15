@@ -12,12 +12,18 @@ class Benefit {
     this.#order = order;
   }
 
+  /**
+   * 증정 메뉴를 반환
+   */
   getPresentMenu() {
     const totalOrderAmount = this.#order.calculateTotalOrderAmount();
     if (Discount.isPresent(totalOrderAmount)) return PRESENT.present;
     return PRESENT.none;
   }
 
+  /**
+   * 혜택 내역을 반환
+   */
   getBenefitDetails() {
     const benefitDetails = new Map();
     if (this.#order.calculateTotalOrderAmount() >= 10000) {

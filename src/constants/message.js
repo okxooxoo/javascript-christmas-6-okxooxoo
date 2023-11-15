@@ -28,7 +28,7 @@ export const CONTENT = Object.freeze({
 });
 
 export const PRESENT = Object.freeze({
-  present: '샴페인 1개',
+  present: CONTENT.menu('샴페인'),
   none: SIGN.none,
 });
 

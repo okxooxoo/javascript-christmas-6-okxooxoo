@@ -1,3 +1,4 @@
+import { SIGN } from '../constants/sign.js';
 import Validation from './Validation.js';
 
 const OrderValidator = {
@@ -10,7 +11,7 @@ const OrderValidator = {
   },
 
   toOrderArray(input) {
-    const orderArray = input.split(',').map((order) => order.trim());
+    const orderArray = input.split(SIGN.comma).map((order) => order.trim());
     orderArray.forEach((order) => Validation.isValidOrder(order));
     return orderArray;
   },
@@ -18,7 +19,7 @@ const OrderValidator = {
   toOrderMap(orderArray) {
     const orderMap = new Map();
     orderArray.forEach((order) => {
-      const [menu, quantity] = order.split('-');
+      const [menu, quantity] = order.split(SIGN.minus);
       orderMap.set(menu, parseInt(quantity));
     });
     return orderMap;
