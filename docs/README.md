@@ -1,5 +1,33 @@
 # 🎄 크리스마스 프로모션 🎄
 
+```bash
+📦src
+ ┣ 📂constants
+ ┃ ┣ 📜error.js
+ ┃ ┣ 📜menu.js
+ ┃ ┣ 📜message.js
+ ┃ ┗ 📜sign.js
+ ┣ 📂controller
+ ┃ ┗ 📜EventPlanner.js
+ ┣ 📂model
+ ┃ ┣ 📂domain
+ ┃ ┃ ┣ 📜Benefit.js
+ ┃ ┃ ┣ 📜Order.js
+ ┃ ┃ ┗ 📜Receipt.js
+ ┃ ┗ 📜Discount.js
+ ┣ 📂utils
+ ┃ ┗ 📜priceWithCommas.js
+ ┣ 📂validator
+ ┃ ┣ 📜DateValidator.js
+ ┃ ┣ 📜OrderValidator.js
+ ┃ ┗ 📜Validation.js
+ ┣ 📂view
+ ┃ ┣ 📜InputView.js
+ ┃ ┗ 📜OutputView.js
+ ┣ 📜App.js
+ ┗ 📜index.js
+```
+
 ## ➊ 방문 날짜 입력 받기
 
 - [x] 입력받은 숫자의 유효성 검사
