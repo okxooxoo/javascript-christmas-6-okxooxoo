@@ -18,14 +18,14 @@ const Validation = {
   isValidOrder(order) {
     const orderRegex = new RegExp(/^[가-힣]+-[1-9]\d*$/);
     if (!orderRegex.test(order)) {
-      throw new Error(ERROR.inValidOrder);
+      throw new Error(ERROR.invalidOrder);
     }
   },
 
   isExistMenu(menuArray) {
     menuArray.forEach((menu) => {
       if (!MENU.hasOwnProperty(menu)) {
-        throw new Error(ERROR.inValidOrder);
+        throw new Error(ERROR.invalidOrder);
       }
     });
   },
@@ -33,7 +33,7 @@ const Validation = {
   isDuplicatedMenu(menuArray) {
     const menuSet = new Set(menuArray);
     if (menuArray.length != menuSet.size) {
-      throw new Error(ERROR.inValidOrder);
+      throw new Error(ERROR.invalidOrder);
     }
   },
 
@@ -41,7 +41,7 @@ const Validation = {
     const allDrink = menuArray.every((menu) => DRINK.hasOwnProperty(menu));
 
     if (allDrink) {
-      throw new Error(ERROR.inValidOrder);
+      throw new Error(ERROR.invalidOrder);
     }
   },
 
@@ -51,7 +51,7 @@ const Validation = {
     }, 0);
 
     if (sum > 20) {
-      throw new Error(ERROR.inValidOrder);
+      throw new Error(ERROR.invalidOrder);
     }
   },
 };
