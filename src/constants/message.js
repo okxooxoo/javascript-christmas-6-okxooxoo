@@ -1,4 +1,5 @@
 import { priceWithCommas } from '../utils/priceWithCommas.js';
+import { SIGN } from './sign.js';
 
 export const GUIDE = Object.freeze({
   greet: '안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.',
@@ -26,6 +27,11 @@ export const CONTENT = Object.freeze({
   price: (price) => `${priceWithCommas(price)}원`,
 });
 
+export const PRESENT = Object.freeze({
+  present: '샴페인 1개',
+  none: SIGN.none,
+});
+
 export const BENEFIT = Object.freeze({
   Dday: '크리스마스 디데이 할인: ',
   weekend: '주말 할인: ',
@@ -38,5 +44,5 @@ export const EVENT_BADGE = Object.freeze({
   star: '별',
   tree: '트리',
   santa: '산타',
-  none: '없음',
+  none: SIGN.none,
 });

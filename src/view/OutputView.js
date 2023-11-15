@@ -20,10 +20,9 @@ const OutputView = {
     Console.print('');
   },
 
-  printPresentMenu(isPresent) {
+  printPresentMenu(present) {
     Console.print(TITLE.presentMenu);
-    if (isPresent) Console.print('샴페인 1개'); // 상수화 필요
-    else Console.print(SIGN.none);
+    Console.print(present);
     Console.print('');
   },
 
@@ -33,12 +32,11 @@ const OutputView = {
     Console.print('');
   },
 
-  printBenefit(benefitDetails) {
+  printBenefitDetails(benefitDetails) {
     Console.print(TITLE.benefit);
     if (benefitDetails.size === 0) Console.print(SIGN.none);
     else {
-      const benefitArray = Array.from(benefitDetails.entries());
-      benefitArray.forEach(([benefit, amount]) => {
+      Array.from(benefitDetails.entries()).forEach(([benefit, amount]) => {
         Console.print(benefit + SIGN.minus + CONTENT.price(amount));
       });
     }

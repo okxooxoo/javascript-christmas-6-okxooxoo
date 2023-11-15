@@ -3,79 +3,59 @@ import OutputView from './view/OutputView.js';
 import Order from './domain/Order.js';
 import Benefit from './domain/Benefit.js';
 import Receipt from './domain/Receipt.js';
-import Discount from './domain/Discount.js';
 
 class EventPlanner {
-  async play() {
-    // 돌아는 간다....
-    const { date, orderMap } = await this.guestEnter();
-    const order = new Order(orderMap);
-    const totalOrderAmount = order.calculateTotalOrderAmount();
+  #order;
+  #benefit;
+  #receipt;
 
+  async initialize() {
+    const { date, order } = await this.#takeOrder();
+    this.#order = new Order(order);
+    this.#benefit = new Benefit(date, this.#order);
+    this.#receipt = new Receipt(this.#benefit);
+  }
+
+  async play() {
+    const totalOrderAmount = this.#showOrderAmount();
+    this.#applyEvents();
+    this.#issueReceipt(totalOrderAmount);
+  }
+
+  async #takeOrder() {
+    OutputView.printGreet();
+    const date = await InputView.readDate();
+    const order = await InputView.readOrder();
+    OutputView.printPreview(date);
+    OutputView.printOrderMenu(order);
+
+    return { date, order };
+  }
+
+  #showOrderAmount() {
+    const totalOrderAmount = this.#order.calculateTotalOrderAmount();
     OutputView.printTotalOrderAmount(totalOrderAmount);
 
-    const benefit = new Benefit(date, order);
-    const benefitDetails = benefit.getBenefitDetails();
+    return totalOrderAmount;
+  }
 
-    const isPresent = Discount.isPresent(totalOrderAmount);
+  #applyEvents() {
+    const benefitDetails = this.#benefit.getBenefitDetails();
+    const present = this.#benefit.getPresentMenu();
 
-    OutputView.printPresentMenu(isPresent);
+    OutputView.printPresentMenu(present);
+    OutputView.printBenefitDetails(benefitDetails);
+  }
 
-    OutputView.printBenefit(benefitDetails);
-
-    const receipt = new Receipt(benefit);
-    let totalBenefitAmount = receipt.calculateTotalBenefitAmount();
-    let paymentAmount = receipt.calculatePaymentAmount(totalOrderAmount);
-    let eventBadge = receipt.getEventBadge();
+  #issueReceipt(totalOrderAmount) {
+    const totalBenefitAmount = this.#receipt.calculateTotalBenefitAmount();
+    const paymentAmount = this.#receipt.calculatePaymentAmount(totalOrderAmount);
+    const eventBadge = this.#receipt.getEventBadge();
 
     OutputView.printTotalBenefitAmount(totalBenefitAmount);
     OutputView.printPaymentAmount(paymentAmount);
     OutputView.printEventBadge(eventBadge);
   }
-
-  async guestEnter() {
-    OutputView.printGreet();
-    const date = await InputView.readDate();
-    const orderMap = await InputView.readOrder();
-    OutputView.printPreview(date);
-    OutputView.printOrderMenu(orderMap);
-
-    return { date, orderMap };
-  }
-
-  // takeOrder(orderMap) {
-  //   const order = new Order(orderMap);
-  //   const totalOrderAmount = order.calculateTotalOrderAmount();
-  //   OutputView.printTotalOrderAmount(totalOrderAmount);
-
-  //   return order;
-  // }
-
-  // applyEvents(date, order) {
-  //   const benefit = new Benefit(date, order);
-  //   const receipt = new Receipt(benefit);
-  //   const benefitDetails = benefit.setBenefitDetails();
-  //   OutputView.printBenefit(benefitDetails);
-
-  //   return benefitDetails;
-  // }
-
-  // applyPresentEvent(totalOrderAmount) {
-  //   if (totalOrderAmount >= 120000) {
-  //     OutputView.printPresentMenu();
-  //   }
-  // }
-
-  // issueReceipt(benefitDetails, totalOrderAmount) {
-  //   const receipt = new Receipt(benefitDetails);
-  //   const totalBenefitAmount = receipt.calculateTotalBenefitAmount();
-  //   const paymentAmount = receipt.calculatePaymentAmount(totalOrderAmount);
-  //   const eventBadge = receipt.getEventBadge();
-
-  //   OutputView.printTotalBenefitAmount(totalBenefitAmount);
-  //   OutputView.printPaymentAmount(paymentAmount);
-  //   OutputView.printEventBadge(eventBadge);
-  // }
 }
 
 export default EventPlanner;

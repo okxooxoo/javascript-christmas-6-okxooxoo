@@ -1,6 +1,6 @@
 import Discount from './Discount.js';
 import DateValidator from '../validator/DateValidator.js';
-import { BENEFIT } from '../constants/message.js';
+import { BENEFIT, PRESENT } from '../constants/message.js';
 
 class Benefit {
   #date;
@@ -10,6 +10,12 @@ class Benefit {
     DateValidator.validate(date);
     this.#date = date;
     this.#order = order;
+  }
+
+  getPresentMenu() {
+    const totalOrderAmount = this.#order.calculateTotalOrderAmount();
+    if (Discount.isPresent(totalOrderAmount)) return PRESENT.present;
+    return PRESENT.none;
   }
 
   getBenefitDetails() {
