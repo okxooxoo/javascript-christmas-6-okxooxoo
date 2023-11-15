@@ -1,5 +1,5 @@
-import { EVENT_BADGE } from '../constants/message.js';
-import Discount from './Discount.js';
+import { EVENT_BADGE } from '../../constants/message.js';
+import Discount from '../Discount.js';
 
 class Receipt {
   #benefit;

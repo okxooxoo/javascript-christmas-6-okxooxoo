@@ -1,8 +1,8 @@
-import InputView from './view/InputView.js';
-import OutputView from './view/OutputView.js';
-import Order from './domain/Order.js';
-import Benefit from './domain/Benefit.js';
-import Receipt from './domain/Receipt.js';
+import InputView from '../view/InputView.js';
+import OutputView from '../view/OutputView.js';
+import Order from '../model/domain/Order.js';
+import Benefit from '../model/domain/Benefit.js';
+import Receipt from '../model/domain/Receipt.js';
 
 class EventPlanner {
   #order;

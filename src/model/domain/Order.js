@@ -1,5 +1,5 @@
-import { DESSERT, MAIN, MENU } from '../constants/menu.js';
-import OrderValidator from '../validator/OrderValidator.js';
+import { DESSERT, MAIN, MENU } from '../../constants/menu.js';
+import OrderValidator from '../../validator/OrderValidator.js';
 
 class Order {
   #order;

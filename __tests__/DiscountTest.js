@@ -1,4 +1,4 @@
-import Discount from '../src/domain/Discount.js';
+import Discount from '../src/model/Discount.js';
 
 describe('할인 테스트', () => {
   test.each([[1], [2], [8], [9], [15], [16], [22], [23], [29], [30]])(

@@ -1,6 +1,6 @@
-import Discount from './Discount.js';
-import DateValidator from '../validator/DateValidator.js';
-import { BENEFIT, PRESENT } from '../constants/message.js';
+import Discount from '../Discount.js';
+import DateValidator from '../../validator/DateValidator.js';
+import { BENEFIT, PRESENT } from '../../constants/message.js';
 
 class Benefit {
   #date;
